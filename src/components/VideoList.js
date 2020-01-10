@@ -11,5 +11,5 @@ export default function VideoList(props) {
       />
     );
   });
-  return <div>{videos}</div>;
+  return <div style={{ marginTop: "1rem" }}>{videos}</div>;
 }
