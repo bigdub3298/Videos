@@ -22,6 +22,7 @@ export class SearchBar extends Component {
               id="search-term"
               onChange={e => this.setState({ term: e.target.value })}
               value={this.state.term}
+              placeholder="Search for any video you want"
             />
           </div>
           <button className="ui button" type="submit">

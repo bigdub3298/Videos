@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SearchBar from "./SearchBar";
 import VideoList from "./VideoList";
+import VideoDetail from "./VideoDetail";
 import youtube from "../api/youtube";
 
 export class App extends Component {
@@ -20,17 +21,29 @@ export class App extends Component {
         q: term
       }
     });
-    this.setState({ videos: response.data.items });
+    this.setState({
+      videos: response.data.items,
+      currentVideo: response.data.items[0]
+    });
   };
 
   render() {
     return (
       <div className="ui container" style={{ marginTop: "1rem" }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
-        <VideoList
-          videos={this.state.videos}
-          onVideoSelected={this.onVideoSelected}
-        />
+        <div className="ui grid">
+          <div className="ui row">
+            <div className="eleven wide column">
+              <VideoDetail video={this.state.currentVideo} />
+            </div>
+            <div className="five wide column">
+              <VideoList
+                videos={this.state.videos}
+                onVideoSelected={this.onVideoSelected}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
