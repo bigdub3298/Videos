@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import SearchBar from "./SearchBar";
+import VideoList from "./VideoList";
 import youtube from "../api/youtube";
 
 export class App extends Component {
   state = {
-    videos: []
+    videos: [],
+    currentVideo: null
   };
 
   onSearchSubmit = async term => {
@@ -13,15 +15,15 @@ export class App extends Component {
         q: term
       }
     });
-
     this.setState({ videos: response.data.items });
+    console.log(response.data.items);
   };
 
   render() {
     return (
       <div className="ui container" style={{ marginTop: "1rem" }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
-        Found: {this.state.videos.length} videos
+        <VideoList videos={this.state.videos} />
       </div>
     );
   }
