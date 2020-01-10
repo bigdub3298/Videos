@@ -9,6 +9,11 @@ export class App extends Component {
     currentVideo: null
   };
 
+  onVideoSelected = video => {
+    this.setState({ currentVideo: video });
+    console.log(video);
+  };
+
   onSearchSubmit = async term => {
     const response = await youtube.get("/search", {
       params: {
@@ -16,14 +21,16 @@ export class App extends Component {
       }
     });
     this.setState({ videos: response.data.items });
-    console.log(response.data.items);
   };
 
   render() {
     return (
       <div className="ui container" style={{ marginTop: "1rem" }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
-        <VideoList videos={this.state.videos} />
+        <VideoList
+          videos={this.state.videos}
+          onVideoSelected={this.onVideoSelected}
+        />
       </div>
     );
   }
